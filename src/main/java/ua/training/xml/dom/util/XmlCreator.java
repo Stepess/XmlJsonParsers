@@ -47,12 +47,12 @@ public class XmlCreator {
         notebookElement.appendChild(createPersonNode(document, "3", "Alexandra", "Ukraine", "1234567", "NAU"));
     }
 
-    private static Node createPersonNode(Document document, String id, String name, String address, String salary, String education) {
+    private static Node createPersonNode(Document document, String id, String name, String address, String cash, String education) {
         Element person = document.createElement("person");
         person.setAttribute("id", id);
         person.appendChild(createPersonElement(document,"name", name));
         person.appendChild(createPersonElement(document,"address", address));
-        person.appendChild(createPersonElement(document,"salary", salary));
+        person.appendChild(createPersonElement(document,"cash", cash));
         person.appendChild(createPersonElement(document,"education", education));
         return person;
     }
