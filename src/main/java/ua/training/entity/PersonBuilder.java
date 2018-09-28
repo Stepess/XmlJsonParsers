@@ -4,7 +4,7 @@ public class PersonBuilder {
     private String name;
     private String address;
     private int cash;
-    private String education;
+    private String education = "None";
 
     public PersonBuilder setName(String name) {
         this.name = name;

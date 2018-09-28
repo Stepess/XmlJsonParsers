@@ -14,6 +14,18 @@ public class Person {
         this.education = education;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
     public int getCash() {
         return cash;
     }
