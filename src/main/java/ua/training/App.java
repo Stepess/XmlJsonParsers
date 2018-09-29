@@ -24,33 +24,7 @@ public class App {
     public static final String ADDRESS_TO_JSON = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
 
     public static void main(String[] args) {
-
-        List<Person> initialValues = new LinkedList<>();
-
-        PersonBuilder builder = new PersonBuilder();
-
-        builder.setName("Darth Vader");
-        builder.setAddress("Far-far galaxy");
-        builder.setCash(100500);
-        builder.setEducation("Death Star");
-
-        initialValues.add(builder.createPerson());
-
-        builder.setName("Ivan");
-        builder.setAddress("Ukraine");
-        builder.setCash(9999);
-        builder.setEducation("NTUU KPI");
-
-        initialValues.add(builder.createPerson());
-
-        builder.setName("Alexandra");
-        builder.setAddress("Ukraine");
-        builder.setCash(1234567);
-        builder.setEducation("NAU");
-
-        initialValues.add(builder.createPerson());
-
-        XmlCreator.createInitialXml(PATH_TO_XML, initialValues);
+        XmlCreator.createInitialXml(PATH_TO_XML, generateInitialVakuesForXml());
         XmlParser DomParser = new DomParser();
         List<Person> persons = DomParser.parseToList(PATH_TO_XML);
 
@@ -73,7 +47,35 @@ public class App {
         currencies = CurrencyService.selectActualCurrencyByTxt(currencies, new HashSet<>(Arrays.asList(ACTUAL_CURRENCY)));
 
         CurrencyService.printListToConsole(currencies);
+    }
 
+    private static List<Person> generateInitialVakuesForXml() {
+        List<Person> initialValues = new LinkedList<>();
+
+        PersonBuilder builder = new PersonBuilder();
+
+        builder.setName("Darth Vader")
+                .setAddress("Far-far galaxy")
+                .setCash(100500)
+                .setEducation("Death Star");
+
+        initialValues.add(builder.createPerson());
+
+        builder.setName("Ivan")
+                .setAddress("Ukraine")
+                .setCash(9999)
+                .setEducation("NTUU KPI");
+
+        initialValues.add(builder.createPerson());
+
+        builder.setName("Alexandra")
+                .setAddress("Ukraine")
+                .setCash(1234567)
+                .setEducation("NAU");
+
+        initialValues.add(builder.createPerson());
+
+        return initialValues;
     }
 }
 

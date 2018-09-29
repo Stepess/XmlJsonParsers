@@ -42,10 +42,10 @@ public class DomParser implements XmlParser {
         PersonBuilder builder = new PersonBuilder();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
-            builder.setId(Integer.parseInt(element.getAttribute("id")));
-            builder.setName(getTagValue("name", element));
-            builder.setAddress(getTagValue("address", element));
-            builder.setCash(Integer.parseInt(getTagValue("cash", element)));
+            builder.setId(Integer.parseInt(element.getAttribute("id")))
+                    .setName(getTagValue("name", element))
+                    .setAddress(getTagValue("address", element))
+                    .setCash(Integer.parseInt(getTagValue("cash", element)));
         }
         return builder.createPerson();
     }

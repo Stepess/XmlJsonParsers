@@ -18,10 +18,10 @@ public class StaxParser implements XmlParser {
         try (StaxStreamProcessor processor = new StaxStreamProcessor(new FileInputStream(new File(xmlPath)))) {
             while (processor.doUntil(XMLEvent.START_ELEMENT, "person")) {
                 PersonBuilder builder = new PersonBuilder();
-                builder.setId(Integer.parseInt(processor.getAttribute("id")));
-                builder.setName(processor.getTextByTagName("name"));
-                builder.setAddress(processor.getTextByTagName("address"));
-                builder.setCash(Integer.parseInt(processor.getTextByTagName("cash")));
+                builder.setId(Integer.parseInt(processor.getAttribute("id")))
+                        .setName(processor.getTextByTagName("name"))
+                        .setAddress(processor.getTextByTagName("address"))
+                        .setCash(Integer.parseInt(processor.getTextByTagName("cash")));
                 persons.add(builder.createPerson());
             }
         } catch (XMLStreamException | FileNotFoundException e) {
