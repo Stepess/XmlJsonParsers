@@ -1,23 +1,27 @@
 package ua.training;
 
+import ua.training.entity.Currency;
 import ua.training.entity.Person;
 import ua.training.entity.PersonBuilder;
+import ua.training.json.GsonParser;
+import ua.training.json.StringReaderFromUrl;
+import ua.training.service.CurrencyService;
 import ua.training.service.PersonService;
-import ua.training.xml.dom.util.DomParser;
-import ua.training.xml.dom.util.StaxParser;
 import ua.training.xml.dom.util.XmlCreator;
 import ua.training.xml.dom.util.XmlParser;
+import ua.training.xml.dom.util.DomParser;
+import ua.training.xml.dom.util.StaxParser;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class App {
     public static final String PATH_TO_XML = "D:\\temp\\catalog.xml";
     public static final String PATH_TO_XML_DOM = "D:\\temp\\catalogDom.xml";
     public static final String PATH_TO_XML_STAX = "D:\\temp\\catalogStax.xml";
+
+    public static final String[] ACTUAL_CURRENCY = {"Долар США", "Російський рубль", "Євро"};
+
+    public static final String ADDRESS_TO_JSON = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
 
     public static void main(String[] args) {
 
@@ -61,6 +65,14 @@ public class App {
         PersonService.printListToConsole(persons);
 
         XmlCreator.createFilteredXml(PATH_TO_XML_STAX, persons);
+
+        String jsonData = StringReaderFromUrl.read(ADDRESS_TO_JSON);
+
+        List<Currency> currencies = GsonParser.parseData(jsonData);
+
+        currencies = CurrencyService.selectActualCurrencyByTxt(currencies, new HashSet<>(Arrays.asList(ACTUAL_CURRENCY)));
+
+        CurrencyService.printListToConsole(currencies);
 
     }
 }
