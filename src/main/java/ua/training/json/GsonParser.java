@@ -3,14 +3,10 @@ package ua.training.json;
 import com.google.gson.*;
 import ua.training.entity.Currency;
 
-import javax.swing.text.DateFormatter;
 import java.lang.reflect.Type;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class GsonParser {
@@ -21,7 +17,7 @@ public class GsonParser {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
                 return formatter.parse(json.getAsString(), LocalDate::from);
             }
-        }).create();//.setPrettyPrinting()
+        }).create();
         Currency[] currencies = gson.fromJson(data, Currency[].class);
         return Arrays.asList(currencies);
     }

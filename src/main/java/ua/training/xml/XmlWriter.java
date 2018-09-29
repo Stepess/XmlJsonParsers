@@ -1,4 +1,4 @@
-package ua.training.xml.dom.util;
+package ua.training.xml;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -18,9 +18,9 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class XmlCreator {
+public class XmlWriter {
 
-    public static void createInitialXml(String path, List<Person> values) {
+    public static void writeInitialXml(String path, List<Person> values) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -52,7 +52,7 @@ public class XmlCreator {
         }
     }
 
-    public static void createFilteredXml(String path, List<Person> values) {
+    public static void writeFilteredXml(String path, List<Person> values) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();

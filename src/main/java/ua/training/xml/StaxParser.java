@@ -1,4 +1,4 @@
-package ua.training.xml.dom.util;
+package ua.training.xml;
 
 import ua.training.entity.Person;
 import ua.training.entity.PersonBuilder;

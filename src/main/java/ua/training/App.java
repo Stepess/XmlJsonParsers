@@ -7,10 +7,10 @@ import ua.training.json.GsonParser;
 import ua.training.json.StringReaderFromUrl;
 import ua.training.service.CurrencyService;
 import ua.training.service.PersonService;
-import ua.training.xml.dom.util.XmlCreator;
-import ua.training.xml.dom.util.XmlParser;
-import ua.training.xml.dom.util.DomParser;
-import ua.training.xml.dom.util.StaxParser;
+import ua.training.xml.XmlWriter;
+import ua.training.xml.XmlParser;
+import ua.training.xml.DomParser;
+import ua.training.xml.StaxParser;
 
 import java.util.*;
 
@@ -23,22 +23,24 @@ public class App {
 
     public static final String ADDRESS_TO_JSON = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
 
+    public static final String PATH_TO_CURRENCY_OUTPUT_FILE = "src/tmp/actualCurrency.txt";
+
     public static void main(String[] args) {
-        XmlCreator.createInitialXml(PATH_TO_XML, generateInitialVakuesForXml());
+        XmlWriter.writeInitialXml(PATH_TO_XML, generateInitialVakuesForXml());
         XmlParser DomParser = new DomParser();
         List<Person> persons = DomParser.parseToList(PATH_TO_XML);
 
         persons = PersonService.selectPersonsWithCashMoreThen(100_000, persons);
         PersonService.printListToConsole(persons);
 
-        XmlCreator.createFilteredXml(PATH_TO_XML_DOM, persons);
+        XmlWriter.writeFilteredXml(PATH_TO_XML_DOM, persons);
 
         XmlParser StaxParser = new StaxParser();
         persons = StaxParser.parseToList(PATH_TO_XML);
         persons = PersonService.selectPersonsWithCashMoreThen(100_000, persons);
         PersonService.printListToConsole(persons);
 
-        XmlCreator.createFilteredXml(PATH_TO_XML_STAX, persons);
+        XmlWriter.writeFilteredXml(PATH_TO_XML_STAX, persons);
 
         String jsonData = StringReaderFromUrl.read(ADDRESS_TO_JSON);
 
@@ -47,6 +49,7 @@ public class App {
         currencies = CurrencyService.selectActualCurrencyByTxt(currencies, new HashSet<>(Arrays.asList(ACTUAL_CURRENCY)));
 
         CurrencyService.printListToConsole(currencies);
+        CurrencyService.writeCurrencyInFile(currencies, PATH_TO_CURRENCY_OUTPUT_FILE);
     }
 
     private static List<Person> generateInitialVakuesForXml() {

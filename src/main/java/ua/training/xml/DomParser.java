@@ -1,4 +1,4 @@
-package ua.training.xml.dom.util;
+package ua.training.xml;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,7 +17,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DomParser implements XmlParser {
-
     @Override
     public List<Person> parseToList(String xmlPath) {
         File xmlFile = new File(xmlPath);
@@ -49,7 +48,6 @@ public class DomParser implements XmlParser {
         }
         return builder.createPerson();
     }
-
 
     private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
