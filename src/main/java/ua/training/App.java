@@ -4,6 +4,7 @@ import ua.training.entity.Person;
 import ua.training.entity.PersonBuilder;
 import ua.training.service.PersonService;
 import ua.training.xml.dom.util.DomParser;
+import ua.training.xml.dom.util.StaxParser;
 import ua.training.xml.dom.util.XmlCreator;
 import ua.training.xml.dom.util.XmlParser;
 
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class App {
     public static final String PATH_TO_XML = "D:\\temp\\catalog.xml";
     public static final String PATH_TO_XML_DOM = "D:\\temp\\catalogDom.xml";
+    public static final String PATH_TO_XML_STAX = "D:\\temp\\catalogStax.xml";
 
     public static void main(String[] args) {
 
@@ -52,6 +54,14 @@ public class App {
         PersonService.printListToConsole(persons);
 
         XmlCreator.createFilteredXml(PATH_TO_XML_DOM, persons);
+
+        XmlParser StaxParser = new StaxParser();
+        persons = StaxParser.parseToList(PATH_TO_XML);
+        persons = PersonService.selectPersonsWithCashMoreThen(100_000, persons);
+        PersonService.printListToConsole(persons);
+
+        XmlCreator.createFilteredXml(PATH_TO_XML_STAX, persons);
+
     }
 }
 
