@@ -8,6 +8,7 @@ import ua.training.entity.Person;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 public class XmlCreator {
 
-    public static void createXml(String path, List<Person> values) {
+    public static void createInitialXml(String path, List<Person> values) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -39,6 +40,40 @@ public class XmlCreator {
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+            DOMSource source = new DOMSource(document);
+            StreamResult result = new StreamResult(new File(path));
+
+            transformer.transform(source, result);
+        } catch (ParserConfigurationException | TransformerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createFilteredXml(String path, List<Person> values) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.newDocument();
+
+            Element rootElement = document.createElement("catalog");
+            document.appendChild(rootElement);
+
+            Element notebookElement = document.createElement("notebook");
+            rootElement.appendChild(notebookElement);
+
+            for (Person person: values) {
+                notebookElement.appendChild(createFilteredPersonNode(document, String.valueOf(person.getId()), person.getName(),
+                        person.getAddress(), String.valueOf(person.getCash())));
+            }
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
             DOMSource source = new DOMSource(document);
             StreamResult result = new StreamResult(new File(path));
 
@@ -55,6 +90,15 @@ public class XmlCreator {
         person.appendChild(createPersonElement(document,"address", address));
         person.appendChild(createPersonElement(document,"cash", cash));
         person.appendChild(createPersonElement(document,"education", education));
+        return person;
+    }
+
+    private static Node createFilteredPersonNode(Document document, String id, String name, String address, String cash) {
+        Element person = document.createElement("person");
+        person.setAttribute("id", id);
+        person.appendChild(createPersonElement(document,"name", name));
+        person.appendChild(createPersonElement(document,"address", address));
+        person.appendChild(createPersonElement(document,"cash", cash));
         return person;
     }
 

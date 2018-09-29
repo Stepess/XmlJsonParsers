@@ -16,10 +16,11 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DomParser {
+public class DomParser implements XmlParser {
 
-    public static List<Person> parse(String path) {
-        File xmlFile = new File(path);
+    @Override
+    public List<Person> parseToList(String xmlPath) {
+        File xmlFile = new File(xmlPath);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
         List<Person> persons = new LinkedList<>();
@@ -37,11 +38,11 @@ public class DomParser {
         return persons;
     }
 
-
     private static Person getPerson(Node node) {
         PersonBuilder builder = new PersonBuilder();
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
+            builder.setId(Integer.parseInt(element.getAttribute("id")));
             builder.setName(getTagValue("name", element));
             builder.setAddress(getTagValue("address", element));
             builder.setCash(Integer.parseInt(getTagValue("cash", element)));
@@ -55,7 +56,6 @@ public class DomParser {
         Node node = (Node) nodeList.item(0);
         return node.getNodeValue();
     }
-
 }
 
 

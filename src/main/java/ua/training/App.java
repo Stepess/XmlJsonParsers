@@ -2,8 +2,10 @@ package ua.training;
 
 import ua.training.entity.Person;
 import ua.training.entity.PersonBuilder;
+import ua.training.service.PersonService;
 import ua.training.xml.dom.util.DomParser;
 import ua.training.xml.dom.util.XmlCreator;
+import ua.training.xml.dom.util.XmlParser;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -42,13 +44,14 @@ public class App {
 
         initialValues.add(builder.createPerson());
 
-        XmlCreator.createXml(PATH_TO_XML, initialValues);
-        List<Person> persons = DomParser.parse(PATH_TO_XML);
+        XmlCreator.createInitialXml(PATH_TO_XML, initialValues);
+        XmlParser DomParser = new DomParser();
+        List<Person> persons = DomParser.parseToList(PATH_TO_XML);
 
-        persons = persons.stream().filter(p -> p.getCash() >= 10000).collect(Collectors.toList());
-        System.out.println(persons);
+        persons = PersonService.selectPersonsWithCashMoreThen(100_000, persons);
+        PersonService.printListToConsole(persons);
 
-        XmlCreator.createXml(PATH_TO_XML_DOM, persons);
+        XmlCreator.createFilteredXml(PATH_TO_XML_DOM, persons);
     }
 }
 

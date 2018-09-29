@@ -1,10 +1,16 @@
 package ua.training.entity;
 
 public class PersonBuilder {
+    private int id;
     private String name;
     private String address;
     private int cash;
-    private String education = "None";
+    private String education;
+
+    public PersonBuilder setId(int id) {
+        this.id = id;
+        return this;
+    }
 
     public PersonBuilder setName(String name) {
         this.name = name;
@@ -27,6 +33,6 @@ public class PersonBuilder {
     }
 
     public Person createPerson() {
-        return new Person(name, address, cash, education);
+        return new Person(id, name, address, cash, education);
     }
 }
