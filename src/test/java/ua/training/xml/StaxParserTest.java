@@ -57,6 +57,7 @@ public class StaxParserTest {
     @Test
     public void GivenInitialDataSetWhenParseItFromXmlThenParsedDataSetEqual(){
         List<Person> parsedData = parser.parseToList(PATH_TO_XML);
+        assertEquals(initialValues.size(), parsedData.size());
         for (int i=0; i<initialValues.size(); i++) {
             assertEquals(initialValues.get(i),parsedData.get(i));
         }
