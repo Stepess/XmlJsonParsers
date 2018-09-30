@@ -21,5 +21,4 @@ public class GsonParser {
         Currency[] currencies = gson.fromJson(data, Currency[].class);
         return Arrays.asList(currencies);
     }
-
 }

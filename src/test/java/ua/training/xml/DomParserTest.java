@@ -11,8 +11,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DomParserTest {
-
-    private final static String PATH_TO_XML = "src\\main\\java\\resource\\testDataDom.xml";
+    private final static String PATH_TO_XML = "src\\main\\java\\resource\\test\\testDataDom.xml";
     private static List<Person> initialValues;
     private XmlParser parser = new DomParser();
 
@@ -56,11 +55,11 @@ public class DomParserTest {
     }
 
     @Test
-    public void GivenInitialDataSetWhenParseItFromXmlThenParsedDataSetEqual(){
+    public void GivenInitialDataSetWhenParseItFromXmlThenParsedDataSetEqual() {
         List<Person> parsedData = parser.parseToList(PATH_TO_XML);
         assertEquals(initialValues.size(), parsedData.size());
-        for (int i=0; i<initialValues.size(); i++) {
-            assertEquals(initialValues.get(i),parsedData.get(i));
+        for (int i = 0; i < initialValues.size(); i++) {
+            assertEquals(initialValues.get(i), parsedData.get(i));
         }
     }
 }

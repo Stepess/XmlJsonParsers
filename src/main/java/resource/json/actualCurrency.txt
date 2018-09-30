@@ -1,0 +1,3 @@
+Currency{r030=643, txt='Російський рубль', rate=0.43101, cc='RUB', exchangedate=2018-10-01}
+Currency{r030=840, txt='Долар США', rate=28.269931, cc='USD', exchangedate=2018-10-01}
+Currency{r030=978, txt='Євро', rate=32.725272, cc='EUR', exchangedate=2018-10-01}

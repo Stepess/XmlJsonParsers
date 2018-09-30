@@ -15,15 +15,15 @@ import ua.training.xml.StaxParser;
 import java.util.*;
 
 public class App {
-    public static final String PATH_TO_XML = "D:\\temp\\catalog.xml";
-    public static final String PATH_TO_XML_DOM = "D:\\temp\\catalogDom.xml";
-    public static final String PATH_TO_XML_STAX = "D:\\temp\\catalogStax.xml";
+    public static final String PATH_TO_XML = "src\\main\\java\\resource\\xml\\catalog.xml";
+    public static final String PATH_TO_XML_DOM = "src\\main\\java\\resource\\xml\\catalogDom.xml";
+    public static final String PATH_TO_XML_STAX = "src\\main\\java\\resource\\xml\\catalogStax.xml";
 
     public static final String[] ACTUAL_CURRENCY = {"Долар США", "Російський рубль", "Євро"};
 
     public static final String ADDRESS_TO_JSON = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
 
-    public static final String PATH_TO_CURRENCY_OUTPUT_FILE = "src/tmp/actualCurrency.txt";
+    public static final String PATH_TO_CURRENCY_OUTPUT_FILE = "src\\main\\java\\resource\\json\\actualCurrency.txt";
 
     public static void main(String[] args) {
         XmlWriter.writeInitialXml(PATH_TO_XML, generateInitialVakuesForXml());
@@ -81,45 +81,3 @@ public class App {
         return initialValues;
     }
 }
-
-
-
-/*List<String> tagsName = new LinkedList<>();
-
-        tagsName.add("name");
-        tagsName.add("address");
-        tagsName.add("cash");
-        tagsName.add("education");
-
-        List<Person> initialValues = new LinkedList<>();
-
-        PersonBuilder builder = new PersonBuilder();
-
-        builder.setName("Darth Vader");
-        builder.setAddress("Far-far galaxy");
-        builder.setCash(100500);
-        builder.setEducation("Death Star");
-
-        initialValues.add(builder.createPerson());
-
-        builder.setName("Ivan");
-        builder.setAddress("Ukraine");
-        builder.setCash(9999);
-        builder.setEducation("NTUU KPI");
-
-        initialValues.add(builder.createPerson());
-
-        builder.setName("Alexandra");
-        builder.setAddress("Ukraine");
-        builder.setCash(1234567);
-        builder.setEducation("NAU");
-
-        initialValues.add(builder.createPerson());
-
-        List<Map> records = new LinkedList<>();
-
-        Map<String, String> record = new HashMap<>();
-
-        record.put(tagsName.get(0), )*/
-
-

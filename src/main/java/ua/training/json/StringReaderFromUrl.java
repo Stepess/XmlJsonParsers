@@ -17,7 +17,7 @@ public class StringReaderFromUrl {
             e.printStackTrace();
         }
 
-        try ( BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))){
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()))) {
             String line;
             while ((line = in.readLine()) != null) {
                 sb.append(line);

@@ -19,7 +19,7 @@ public class CurrencyService extends EntityService {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)))) {
             for (Currency currency : currencies) {
                 writer.write(currency.toString());
-                writer.write("\n");
+                writer.write("\r\n");
             }
         } catch (IOException e) {
             e.printStackTrace();

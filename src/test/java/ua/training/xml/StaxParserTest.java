@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class StaxParserTest {
-    private final static String PATH_TO_XML = "src\\main\\java\\resource\\testDataStax.xml";
+    private final static String PATH_TO_XML = "src\\main\\java\\resource\\test\\testDataStax.xml";
     private static List<Person> initialValues;
     private XmlParser parser = new StaxParser();
 
@@ -55,12 +55,11 @@ public class StaxParserTest {
     }
 
     @Test
-    public void GivenInitialDataSetWhenParseItFromXmlThenParsedDataSetEqual(){
+    public void GivenInitialDataSetWhenParseItFromXmlThenParsedDataSetEqual() {
         List<Person> parsedData = parser.parseToList(PATH_TO_XML);
         assertEquals(initialValues.size(), parsedData.size());
-        for (int i=0; i<initialValues.size(); i++) {
-            assertEquals(initialValues.get(i),parsedData.get(i));
+        for (int i = 0; i < initialValues.size(); i++) {
+            assertEquals(initialValues.get(i), parsedData.get(i));
         }
     }
-
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog>
+  <notebook>
+    <person id="1">
+      <name>Darth Vader</name>
+      <address>Far-far galaxy</address>
+      <cash>100500</cash>
+    </person>
+    <person id="3">
+      <name>Alexandra</name>
+      <address>Ukraine</address>
+      <cash>1234567</cash>
+    </person>
+  </notebook>
+</catalog>
