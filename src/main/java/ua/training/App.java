@@ -24,6 +24,7 @@ public class App {
     public static final String ADDRESS_TO_JSON = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
 
     public static final String PATH_TO_CURRENCY_OUTPUT_FILE = "src\\main\\java\\resource\\json\\actualCurrency.txt";
+    public static final String PATH_TO_CURRENCY_OUTPUT_FILE_JSON = "src\\main\\java\\resource\\json\\actualCurrencyJson.txt";
 
     public static void main(String[] args) {
         XmlWriter.writeInXml(PATH_TO_XML, generateInitialValuesForXml());
@@ -49,7 +50,8 @@ public class App {
         currencies = CurrencyService.selectActualCurrencyByTxt(currencies, new HashSet<>(Arrays.asList(ACTUAL_CURRENCY)));
 
         CurrencyService.printListToConsole(currencies);
-        CurrencyService.writeCurrencyInFile(currencies, PATH_TO_CURRENCY_OUTPUT_FILE);
+        CurrencyService.writeCurrencyToFile(currencies, PATH_TO_CURRENCY_OUTPUT_FILE);
+        CurrencyService.writeCurrencyToFileInJsonFormat(currencies, PATH_TO_CURRENCY_OUTPUT_FILE_JSON);
     }
 
     private static List<Person> generateInitialValuesForXml() {

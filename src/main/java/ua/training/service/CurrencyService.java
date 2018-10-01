@@ -1,5 +1,6 @@
 package ua.training.service;
 
+import com.google.gson.Gson;
 import ua.training.entity.Currency;
 
 import java.io.BufferedWriter;
@@ -15,11 +16,22 @@ public class CurrencyService extends EntityService {
         return currencies.stream().filter(c -> actualCurrency.contains(c.getTxt())).collect(Collectors.toList());
     }
 
-    public static void writeCurrencyInFile(List<Currency> currencies, String filePath) {
+    public static void writeCurrencyToFile(List<Currency> currencies, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)))) {
             for (Currency currency : currencies) {
                 writer.write(currency.toString());
                 writer.write("\r\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeCurrencyToFileInJsonFormat(List<Currency> currencies, String filePath) {
+        Gson gson = new Gson();
+        try {
+            for (Currency c: currencies){
+                gson.toJson(c, new FileWriter(filePath));
             }
         } catch (IOException e) {
             e.printStackTrace();
