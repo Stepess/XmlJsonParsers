@@ -45,7 +45,7 @@ public class DomParserTest {
 
         initialValues.add(builder.createPerson());
 
-        XmlWriter.writeInitialXml(PATH_TO_XML, initialValues);
+        XmlWriter.writeInXml(PATH_TO_XML, initialValues);
     }
 
     @Test
