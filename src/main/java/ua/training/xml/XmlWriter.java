@@ -17,10 +17,11 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class XmlWriter {
 
-    public static void writeInitialXml(String path, List<Person> values) {
+    public static void writeInXml(String path, List<Person> values) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -40,37 +41,7 @@ public class XmlWriter {
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-
-            DOMSource source = new DOMSource(document);
-            StreamResult result = new StreamResult(new File(path));
-
-            transformer.transform(source, result);
-        } catch (ParserConfigurationException | TransformerException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeFilteredXml(String path, List<Person> values) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.newDocument();
-
-            Element rootElement = document.createElement("catalog");
-            document.appendChild(rootElement);
-
-            Element notebookElement = document.createElement("notebook");
-            rootElement.appendChild(notebookElement);
-
-            for (Person person : values) {
-                notebookElement.appendChild(createFilteredPersonNode(document, String.valueOf(person.getId()), person.getName(),
-                        person.getAddress(), String.valueOf(person.getCash())));
-            }
-
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
+            //for beautiful xml
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 
@@ -89,16 +60,8 @@ public class XmlWriter {
         person.appendChild(createPersonElement(document, "name", name));
         person.appendChild(createPersonElement(document, "address", address));
         person.appendChild(createPersonElement(document, "cash", cash));
-        person.appendChild(createPersonElement(document, "education", education));
-        return person;
-    }
-
-    private static Node createFilteredPersonNode(Document document, String id, String name, String address, String cash) {
-        Element person = document.createElement("person");
-        person.setAttribute("id", id);
-        person.appendChild(createPersonElement(document, "name", name));
-        person.appendChild(createPersonElement(document, "address", address));
-        person.appendChild(createPersonElement(document, "cash", cash));
+        Optional.ofNullable(education)
+                .ifPresent(e -> person.appendChild(createPersonElement(document, "education", e)));
         return person;
     }
 

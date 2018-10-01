@@ -26,21 +26,21 @@ public class App {
     public static final String PATH_TO_CURRENCY_OUTPUT_FILE = "src\\main\\java\\resource\\json\\actualCurrency.txt";
 
     public static void main(String[] args) {
-        XmlWriter.writeInitialXml(PATH_TO_XML, generateInitialVakuesForXml());
+        XmlWriter.writeInXml(PATH_TO_XML, generateInitialValuesForXml());
         XmlParser DomParser = new DomParser();
         List<Person> persons = DomParser.parseToList(PATH_TO_XML);
 
         persons = PersonService.selectPersonsWithCashMoreThen(100_000, persons);
         PersonService.printListToConsole(persons);
 
-        XmlWriter.writeFilteredXml(PATH_TO_XML_DOM, persons);
+        XmlWriter.writeInXml(PATH_TO_XML_DOM, persons);
 
         XmlParser StaxParser = new StaxParser();
         persons = StaxParser.parseToList(PATH_TO_XML);
         persons = PersonService.selectPersonsWithCashMoreThen(100_000, persons);
         PersonService.printListToConsole(persons);
 
-        XmlWriter.writeFilteredXml(PATH_TO_XML_STAX, persons);
+        XmlWriter.writeInXml(PATH_TO_XML_STAX, persons);
 
         String jsonData = StringReaderFromUrl.read(ADDRESS_TO_JSON);
 
@@ -52,7 +52,7 @@ public class App {
         CurrencyService.writeCurrencyInFile(currencies, PATH_TO_CURRENCY_OUTPUT_FILE);
     }
 
-    private static List<Person> generateInitialVakuesForXml() {
+    private static List<Person> generateInitialValuesForXml() {
         List<Person> initialValues = new LinkedList<>();
 
         PersonBuilder builder = new PersonBuilder();
