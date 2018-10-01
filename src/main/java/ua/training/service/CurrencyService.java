@@ -29,9 +29,10 @@ public class CurrencyService extends EntityService {
 
     public static void writeCurrencyToFileInJsonFormat(List<Currency> currencies, String filePath) {
         Gson gson = new Gson();
-        try {
+        try(FileWriter writer = new FileWriter(filePath)) {
             for (Currency c: currencies){
-                gson.toJson(c, new FileWriter(filePath));
+                gson.toJson(c, writer);
+                writer.write("\r\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
